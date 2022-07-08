@@ -10,18 +10,70 @@
 
 RCT_EXPORT_MODULE()
 
+- (NSDictionary *)constantsToExport
+{
+    if (@available(iOS 13.0, *)) {
+        return @{
+            @"RNMov2Mp4ExportPreset": @{
+                @"ExportPresetLowQuality": AVAssetExportPresetLowQuality,
+                @"ExportPresetMediumQuality": AVAssetExportPresetMediumQuality,
+                @"ExportPresetHighestQuality": AVAssetExportPresetHighestQuality,
+                @"ExportPresetHEVCHighestQuality": AVAssetExportPresetHEVCHighestQuality,
+                @"ExportPresetHEVCHighestQualityWithAlpha": AVAssetExportPresetHEVCHighestQualityWithAlpha,
+                @"ExportPreset640x480": AVAssetExportPreset640x480,
+                @"ExportPreset960x540": AVAssetExportPreset960x540,
+                @"ExportPreset1280x720": AVAssetExportPreset1280x720,
+                @"ExportPreset1920x1080": AVAssetExportPreset1920x1080,
+                @"ExportPreset3840x2160": AVAssetExportPreset3840x2160,
+            },
+        };
+    } else if (@available(iOS 11.0, *)) {
+            return @{
+                @"RNMov2Mp4ExportPreset": @{
+                    @"ExportPresetLowQuality": AVAssetExportPresetLowQuality,
+                    @"ExportPresetMediumQuality": AVAssetExportPresetMediumQuality,
+                    @"ExportPresetHighestQuality": AVAssetExportPresetHighestQuality,
+                    @"ExportPresetHEVCHighestQuality": AVAssetExportPresetHEVCHighestQuality,
+                    @"ExportPresetHEVCHighestQualityWithAlpha": AVAssetExportPresetHEVCHighestQuality,
+                    @"ExportPreset640x480": AVAssetExportPreset640x480,
+                    @"ExportPreset960x540": AVAssetExportPreset960x540,
+                    @"ExportPreset1280x720": AVAssetExportPreset1280x720,
+                    @"ExportPreset1920x1080": AVAssetExportPreset1920x1080,
+                    @"ExportPreset3840x2160": AVAssetExportPreset3840x2160,
+                },
+            };
+    } else {
+        return @{
+            @"RNMov2Mp4ExportPreset": @{
+                @"ExportPresetLowQuality": AVAssetExportPresetLowQuality,
+                @"ExportPresetMediumQuality": AVAssetExportPresetMediumQuality,
+                @"ExportPresetHighestQuality": AVAssetExportPresetHighestQuality,
+                @"ExportPresetHEVCHighestQuality": AVAssetExportPresetHighestQuality,
+                @"ExportPresetHEVCHighestQualityWithAlpha": AVAssetExportPresetHighestQuality,
+                @"ExportPreset640x480": AVAssetExportPreset640x480,
+                @"ExportPreset960x540": AVAssetExportPreset960x540,
+                @"ExportPreset1280x720": AVAssetExportPreset1280x720,
+                @"ExportPreset1920x1080": AVAssetExportPreset1920x1080,
+                @"ExportPreset3840x2160": AVAssetExportPreset3840x2160,
+            },
+        };
+    }
+}
+
 RCT_EXPORT_METHOD(convertMovToMp4: (NSString*)filename
                  toPath:(NSString*)outputPath
+                 videoQuality:(NSString*) videoQuality
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject
                 )
 {
+    
     NSURL *urlFile = [NSURL fileURLWithPath:filename];
     AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:urlFile options:nil];
 
     NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
 
-    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetMediumQuality];
+    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:videoQuality];
 
     NSString * resultPath = [NSHomeDirectory() stringByAppendingFormat:@"/Documents/%@.mp4", outputPath];
 

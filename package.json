@@ -1,12 +1,12 @@
 {
   "name": "react-native-mov-to-mp4",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "React Native convert mov files to mp4",
   "main": "index",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/taltultc/react-native-mov-to-mp4"
+    "url": "https://github.com/world-television/crewstudio-mov-to-mp4"
   },
   "keywords": [
     "react-native",
@@ -19,6 +19,6 @@
     "camera"
   ],
   "author": "Tal Cohen <taltultc@yahoo.com>",
-  "homepage": "https://github.com/taltultc/react-native-mov-to-mp4#readme",
+  "homepage": "https://github.com/world-television/crewstudio-mov-to-mp4#readme",
   "nativePackage": true
 }
